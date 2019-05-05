@@ -1,0 +1,10 @@
+@tailwind preflight;
+
+@tailwind components;
+
+@tailwind utilities;
+
+
+p.non-tailwind-class {
+	color: white;
+}
