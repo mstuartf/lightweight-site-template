@@ -1,10 +1,9 @@
 // import all images here
-
 import './assets/logo.png';
 
 
-function someFunction(arg: string) {
+function placeholderFunction(arg: string) {
 	console.log(arg);
 }
 
-someFunction('TS: this is TS');
+placeholderFunction('Lightweight site is running!');
