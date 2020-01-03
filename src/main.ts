@@ -1,9 +1,8 @@
 // import all images here
-import './assets/logo.png';
-
+import "./assets/logo.png";
 
 function placeholderFunction(arg: string) {
-	console.log(arg);
+  console.log(arg);
 }
 
-placeholderFunction('Lightweight site is running!');
+placeholderFunction("Lightweight site is running!");
