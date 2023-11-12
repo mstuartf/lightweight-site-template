@@ -2,7 +2,7 @@
 import "./assets/logo.png";
 
 import { initializeApp } from "firebase/app";
-import { child, get, getDatabase, ref } from "firebase/database";
+import { child, get, getDatabase, ref, set } from "firebase/database";
 
 interface Barber {
   name: string;
@@ -15,18 +15,44 @@ const firebaseConfig = {
   projectId: "grade92-fa0ad"
 };
 
+initializeApp(firebaseConfig);
+const db = getDatabase();
+
+// ELEMENTS
+
+const addNewBarberBtn: HTMLButtonElement = document.getElementById(
+  "addNewBarberBtn"
+) as HTMLButtonElement;
+const addNewBarberInput: HTMLInputElement = document.getElementById(
+  "addNewBarberInput"
+) as HTMLInputElement;
+
+// UTILS
+
 const elFromStr = (str: string): ChildNode => {
   const parser = new DOMParser();
   return parser.parseFromString(str, "text/html").body.firstChild;
 };
 
+// API CALLS
+
+const getBarbers = (): Promise<Barber[]> =>
+  get(child(ref(db), `/barbers`)).then(snapshot => snapshot.val());
+
+const addBarber = (barber: Barber): Promise<void> =>
+  getBarbers().then(existingBarbers => {
+    set(ref(db, "/barbers"), [...existingBarbers, barber]);
+  });
+
+const deleteBarber = () => {};
+
+// LOGIC
+
 // fetches barbers from the db and updates the list in the DOM
-const getBarbers = () => {
+const getBarberList = () => {
   const barbersContainer = document.getElementById("barbers");
   barbersContainer.innerHTML = "";
-  const dbRef = ref(getDatabase());
-  get(child(dbRef, `/barbers`)).then(snapshot => {
-    const barbers: Barber[] = snapshot.val();
+  getBarbers().then(barbers => {
     barbers.forEach(({ name, id }) => {
       const htmlString = `
             <div id="${id}" class="flex justify-between items-center border rounded p-4 shadow">
@@ -42,10 +68,15 @@ const getBarbers = () => {
   });
 };
 
-const deleteBarber = () => {};
+const addNewBarber = () => {
+  addNewBarberBtn.disabled = true;
+  const name = addNewBarberInput.value;
+  addBarber({ name, id: name.toLowerCase().replace(/ /g, "") }).then(() => {
+    addNewBarberBtn.disabled = false;
+    addNewBarberInput.value = "";
+    getBarberList();
+  });
+};
 
-const addBarber = () => {};
-
-const app = initializeApp(firebaseConfig);
-
-getBarbers();
+getBarberList();
+addNewBarberBtn.addEventListener("click", addNewBarber);
