@@ -1,42 +1,24 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" class="h-full">
-
   <head>
     <title>Lightweight Site Template</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
-  <body class="h-full">
-
-    <div class="flex items-center justify-center h-full w-full bg-brand-red">
-
-      <div class="h-1/2 md:w-1/2 text-center p-4">
-
-        <h1 class="text-4xl text-white font-sans">
-          Lightweight Site Template
+  <body class="h-full text-gray-600">
+    <div class="flex justify-center h-full w-full bg-white py-32">
+      <div class="w-full max-w-xl">
+        <h1 class="text-4xl font-sans pb-4">
+          Grade92 barbers
         </h1>
 
-        <div class="h-3/4 p-8">
-          <img class="h-full" src="./logo.png">
-        </div>
-
-        <div class="py-2">
-          <p class="non-tailwind-class">
-            Built using Typescript, Tailwind, PurgeCSS, CSSNano, and Webpack.
-          </p>
-        </div>
-
-        <div class="py-2">
-          <p class="non-tailwind-class">
-            Logo from <a href="https://gauger.io/fonticon/" target="_blank">gauger.io</a>.
-          </p>
-        </div>
-
+        <div id="barbers" class="py-2 grid grid-cols-1 gap-4"></div>
       </div>
-
     </div>
-
   </body>
-
 </html>
